@@ -7,29 +7,14 @@ env:
 phases:
   install:
     commands:
-      - env
-      - echo "---"
-      - echo Entered the install phase...
       - apt-get update -y
       - pip install awscli --upgrade --user
-      - echo install completed      
-
       
   pre_build:
     commands:
-      - echo Entered the pre_build phase...
       - $(aws ecr get-login --no-include-email --region ap-southeast-2)
-      - echo pre_build completed
       
   build:
     commands:
-      - echo Entered the build phase...
       - docker build --tag "${"$ECR_REPO_URI"}:latest" .
       - docker push "${"$ECR_REPO_URI"}:latest"
-      - echo build completed
-      
-  post_build:
-    commands:
-      - echo Entered the post_build phase...
-      
-      - echo post_build completed
