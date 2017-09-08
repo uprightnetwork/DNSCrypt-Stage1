@@ -1,9 +1,5 @@
 version: 0.2
 
-env:
-  parameter-store:
-    ECR_REPO_URI: "ECR_REPO_URI"
-
 phases:
   install:
     commands:
