@@ -19,9 +19,8 @@ phases:
     commands:
       - echo Entered the pre_build phase...
       - $(aws ecr get-login --no-include-email --region ap-southeast-2)
-      - echo -n "${CODEBUILD_RESOLVED_SOURCE_VERSION}" > /tmp/commit_id.out
-      - printf '{"tag":"%s"}' "$(cat /tmp/commit_id.out)" > /tmp/build.out
-      - printf "%s:%s" "$ECR_REPO_URI" "$(cat /tmp/commit_id.out)" > /tmp/build_tag.out
+      - printf '{"tag":"%s"}' "latest" > /tmp/build.out
+      - printf "%s:%s" "$ECR_REPO_URI" "latest" > /tmp/build_tag.out
       - echo 
       - echo 
       - echo pre_build completed
