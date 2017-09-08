@@ -12,13 +12,17 @@ phases:
     commands:
       - echo Entered the pre_build phase...
       - $(aws ecr get-login)
+      - echo -n "${CODEBUILD_RESOLVED_SOURCE_VERSION}" > /tmp/commit_id.out
+      - printf '{"tag":"%s"}' "$(cat /tmp/commit_id.out)" > /tmp/build.out
+      - printf "%s:%s" "$REPOSITORY_URI" "$(cat /tmp/commit_id.out)" > /tmp/build_tag.out
       - echo pre_build completed
       
   build:
     commands:
       - echo Entered the build phase...
-
-      - echo build completed      
+      - docker build --tag "$(cat /tmp/build_tag.out)" .
+      - docker push "$(cat /tmp/build_tag.out)"
+      - echo build completed
       
   post_build:
     commands:
