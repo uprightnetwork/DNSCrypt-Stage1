@@ -12,5 +12,5 @@ phases:
       
   build:
     commands:
-      - docker build --tag "${"$ECR_REPO_URI"}:latest" .
-      - docker push "${"$ECR_REPO_URI"}:latest"
+      - docker build --tag "${$ECR_REPO_URI}:latest" .
+      - docker push "${$ECR_REPO_URI}:latest"
